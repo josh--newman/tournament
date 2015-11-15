@@ -11,10 +11,10 @@ class App extends React.Component {
     super();
 
     ThemeManager.setPalette({
-      primary1Color: Colors.blue500,
-      primary2Color: Colors.blue700,
-      primary3Color: Colors.blue100,
-      accent1Color: Colors.pink400
+      primary1Color: Colors.deepOrange500,
+      primary2Color: Colors.deepOrange700,
+      primary3Color: Colors.deepOrange100,
+      accent1Color: Colors.blueGrey400
     });
   }
 

@@ -1,0 +1,18 @@
+{
+  "teams": {
+    "team1": {
+      "name": "Rim Rockerz"
+    },
+    "team2": {
+      "name": "Bounce Brothers"
+    },
+    "team3": {
+      "name": "Some other team"
+    }
+  },
+  "players": {
+    "team1": ["Josh", "Snedds"],
+    "team2": ["Martin", "Kyle"],
+    "team3": ["Vaughan", "Mel"]
+  }
+}
