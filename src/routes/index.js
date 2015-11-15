@@ -9,7 +9,8 @@ let DefaultRoute = Router.DefaultRoute;
 let routes = (
   <Route path="/" handler={App}>
     <DefaultRoute handler={TeamEditor} />
-    <Route path="teams" handler={TeamEditor} />
+    <Route path="team" handler={TeamEditor} />
+    <Route path="team/:team" handler={TeamEditor} />
   </Route>
 );
 

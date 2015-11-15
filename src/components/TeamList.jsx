@@ -3,8 +3,9 @@ import mui from 'material-ui';
 import Team from './Team.jsx'
 import TeamStore from '../stores/TeamStore'
 import connectToStores from 'alt/utils/connectToStores';
+import _ from 'lodash';
 
-var {Card, List} = mui;
+var {Card, List, CircularProgress} = mui;
 
 @connectToStores
 class TeamList extends React.Component {
@@ -13,7 +14,15 @@ class TeamList extends React.Component {
   }
 
   componentDidMount() {
-    TeamStore.getTeams();
+    this.selectedTeam = this.props.params.team;
+    TeamStore.getTeams(this.selectedTeam);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.selectedTeam != nextProps.params.team) {
+      this.selectedTeam = nextProps.params.team;
+      TeamStore.getTeams(this.selectedTeam)
+    }
   }
 
   static getStores() {
@@ -27,6 +36,25 @@ class TeamList extends React.Component {
   }
 
   render() {
+    if(!this.props.teams) {
+      return (
+        <Card style={{
+          flexGrow: 1
+        }}>
+          <CircularProgress
+            mode="indeterminate"
+            style={{
+              paddingTop: '20px',
+              paddingBottom: '20px',
+              margin: '0 auto',
+              display: 'block',
+              width: '60px'
+            }}
+          />
+        </Card>
+      )
+    }
+
     var teamNodes = _(this.props.teams)
       .keys()
       .map((k) => {

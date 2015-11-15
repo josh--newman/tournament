@@ -11,8 +11,29 @@
     }
   },
   "players": {
-    "team1": ["Josh", "Snedds"],
-    "team2": ["Martin", "Kyle"],
-    "team3": ["Vaughan", "Mel"]
+    "team1": {
+      "player1": {
+        "name": "Josh"
+      },
+      "player2": {
+        "name": "Snedds"
+      }
+    },
+    "team2": {
+      "player1": {
+        "name": "Martin"
+      },
+      "player2": {
+        "name": "Kyle"
+      }
+    },
+    "team3": {
+      "player1": {
+        "name": "Vaughan"
+      },
+      "player2": {
+        "name": "Mel"
+      }
+    }
   }
 }
