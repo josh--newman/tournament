@@ -1,11 +1,19 @@
 import React from 'react';
 import mui from 'material-ui';
+import Actions from '../actions'
 import Team from './Team.jsx'
 import TeamStore from '../stores/TeamStore'
 import connectToStores from 'alt/utils/connectToStores';
 import _ from 'lodash';
+import trim from 'trim';
 
-var {Card, List, CircularProgress, IconButton, TextField} = mui;
+var {
+  Card,
+  List,
+  CircularProgress,
+  IconButton,
+  TextField,
+  ListItem} = mui;
 
 @connectToStores
 class TeamList extends React.Component {
@@ -39,9 +47,35 @@ class TeamList extends React.Component {
   }
 
   onClick() {
+    if (!this.state.addingTeam) {
+      this.setState({
+        addingTeam: true
+      });
+    } else {
+      this.setState({
+        addingTeam: false
+      });
+    }
+  }
+
+  onChange(evt) {
     this.setState({
-      addingTeam: true
+      newTeam: evt.target.value
     });
+  }
+
+  onKeyUp(evt) {
+    if(evt.keyCode === 13 && trim(evt.target.value) != '') {
+      evt.preventDefault();
+
+      Actions.createTeam(this.state.newTeam);
+
+      this.setState({
+        newTeam: ''
+      });
+
+      console.log('Created a new team: ', evt.target.value);
+    }
   }
 
   render() {
@@ -67,9 +101,13 @@ class TeamList extends React.Component {
     let addTeamField = null;
     if (this.state.addingTeam) {
       addTeamField = <TextField style={{
-          marginLeft: "15px"
-        }}
-        hintText="Team name" />;
+                        marginLeft: "15px"
+                      }}
+                      hintText="Team name"
+                      value={this.state.newTeam}
+                      onChange={this.onChange.bind(this)}
+                      onKeyUp={this.onKeyUp.bind(this)} />;
+
     }
 
     var teamNodes = _(this.props.teams)

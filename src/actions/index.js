@@ -7,7 +7,10 @@ class Actions {
     this.generateActions (
       'teamsReceived',
       'teamOpened',
-      'playersReceived'
+      'playersReceived',
+      'createTeam',
+      'teamReceived',
+      'teamCreatedSuccess'
     );
   }
 }

@@ -4,6 +4,23 @@ import Firebase from 'firebase';
 let firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
 
 let TeamSource = {
+  createTeam: {
+    remote(state) {
+      return new Promise((resolve, reject) => {
+        if(!firebaseRef) {
+          return resolve();
+        }
+
+        firebaseRef.push({
+          "name": state.team
+        });
+        resolve();
+      });
+    },
+    success: Actions.teamCreatedSuccess,
+    error: Actions.teamCreatedError
+  },
+
   getTeams: {
     remote(state, selectedTeamKey){
       return new Promise((resolve, reject) => {
@@ -15,6 +32,12 @@ let TeamSource = {
             selectedTeam.selected = true;
           }
           resolve(teams);
+
+          firebaseRef.on("child_added", (team) => {
+            let teamVal = team.val();
+            teamVal.key = team.key();
+            Actions.teamReceived(teamVal);
+          });
         });
       });
     },

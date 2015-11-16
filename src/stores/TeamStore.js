@@ -50,6 +50,25 @@ class TeamStore {
     setTimeout(this.getInstance().getPlayers, 100);
   }
 
+  @bind(Actions.teamReceived)
+  teamReceived(team) {
+    if(this.state.teams[team.key]) {
+      return;
+    }
+
+    this.state.teams[team.key] = team;
+
+    this.setState({
+      team: this.state.team
+    });
+  }
+
+  @bind(Actions.createTeam)
+  createTeam(team) {
+    this.state.team = team;
+    setTimeout(this.getInstance().createTeam, 10);
+  }
+
   @bind(Actions.teamOpened)
   teamOpened(selectedTeam) {
     _(this.state.teams)
