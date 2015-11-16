@@ -1,7 +1,7 @@
 import React from 'react';
 import mui from 'material-ui';
 
-var {ListItem} = mui;
+var {ListItem, TextField} = mui;
 
 class Player extends React.Component {
   constructor(props) {
@@ -10,7 +10,9 @@ class Player extends React.Component {
 
   render() {
     return (
-      <ListItem primaryText={this.props.player.name}/>
+      <ListItem
+        primaryText={this.props.player.name}
+        disabled={true}/>
     );
   }
 }

@@ -5,7 +5,7 @@ import TeamStore from '../stores/TeamStore'
 import connectToStores from 'alt/utils/connectToStores';
 import _ from 'lodash';
 
-var {Card, List, CircularProgress} = mui;
+var {Card, List, CircularProgress, IconButton, TextField} = mui;
 
 @connectToStores
 class TeamList extends React.Component {
@@ -14,6 +14,9 @@ class TeamList extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      addingTeam: false
+    });
     this.selectedTeam = this.props.params.team;
     TeamStore.getTeams(this.selectedTeam);
   }
@@ -33,6 +36,12 @@ class TeamList extends React.Component {
     // Maybe be more selective here
     // to lower memory footprint
     return TeamStore.getState();
+  }
+
+  onClick() {
+    this.setState({
+      addingTeam: true
+    });
   }
 
   render() {
@@ -55,6 +64,14 @@ class TeamList extends React.Component {
       )
     }
 
+    let addTeamField = null;
+    if (this.state.addingTeam) {
+      addTeamField = <TextField style={{
+          marginLeft: "15px"
+        }}
+        hintText="Team name" />;
+    }
+
     var teamNodes = _(this.props.teams)
       .keys()
       .map((k) => {
@@ -69,7 +86,11 @@ class TeamList extends React.Component {
       <Card style={{
         flexGrow: 1
       }}>
+        <IconButton
+          iconClassName="material-icons"
+          onClick={this.onClick.bind(this)}>add</IconButton>
         <List>
+          {addTeamField}
           {teamNodes}
         </List>
       </Card>
