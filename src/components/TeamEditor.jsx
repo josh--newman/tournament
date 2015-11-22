@@ -18,7 +18,6 @@ class TeamEditor extends React.Component {
           margin: '30px auto 30px'
       }}>
         <TeamList {...this.props} />
-        <PlayerList />
       </div>
     );
   }

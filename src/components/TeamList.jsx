@@ -127,10 +127,8 @@ class TeamList extends React.Component {
         <IconButton
           iconClassName="material-icons"
           onClick={this.onClick.bind(this)}>add</IconButton>
-        <List>
-          {addTeamField}
-          {teamNodes}
-        </List>
+        {addTeamField}
+        {teamNodes}
       </Card>
     );
   }
