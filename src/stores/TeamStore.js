@@ -28,6 +28,14 @@ class TeamStore {
     });
   }
 
+  @bind(Actions.editPlayer)
+  editPlayer(editPlayerPayload) {
+    this.state.player = editPlayerPayload.player;
+    this.state.teamKey = editPlayerPayload.teamKey;
+    this.state.playerKey = editPlayerPayload.playerKey;
+    setTimeout(this.getInstance().editPlayer, 10);
+  }
+
 
   @bind(Actions.teamsReceived)
   receivedTeams(teams) {

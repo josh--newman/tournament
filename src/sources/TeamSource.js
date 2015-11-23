@@ -12,7 +12,15 @@ let TeamSource = {
         }
 
         firebaseRef.push({
-          "name": state.team
+          "name": state.team,
+          "players": {
+            "player1": {
+              "name": "Player 1"
+            },
+            "player2": {
+              "name": "Player 2"
+            }
+          }
         });
         resolve();
       });

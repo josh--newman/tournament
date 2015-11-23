@@ -122,7 +122,9 @@ class TeamList extends React.Component {
 
     return (
       <Card style={{
-        flexGrow: 1
+        margin: "0 auto",
+        display: "block",
+        maxWidth: "600px"
       }}>
         <IconButton
           iconClassName="material-icons"

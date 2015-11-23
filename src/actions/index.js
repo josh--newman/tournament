@@ -10,7 +10,10 @@ class Actions {
       'playersReceived',
       'createTeam',
       'teamReceived',
-      'teamCreatedSuccess'
+      'teamCreatedSuccess',
+      'editPlayer',
+      'editPlayerSuccessful',
+      'playerReceived'
     );
   }
 }

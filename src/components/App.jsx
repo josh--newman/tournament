@@ -31,7 +31,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AppBar title="Tournament" />
+        <AppBar style={{
+          textAlign: "center",
+          backgroundColor: Colors.deepOrange500
+        }}
+        title="Taurassi Tournament" />
         <RouteHandler />
       </div>
     );

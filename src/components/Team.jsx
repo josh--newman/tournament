@@ -15,20 +15,24 @@ class Team extends React.Component {
   }
 
   render() {
-    let style = {}
-
-    if (this.props.team.selected) {
-      style.backgroundColor = '#f0f0f0';
-    }
-
-    let players = _(this.props.team.players).map((player) => {
-      return (
-        <Player name={player}/>
-      );
-    }).value();
+    let players = _(this.props.team.players)
+      .keys()
+      .map((k) => {
+        let player = this.props.team.players[k];
+        let playerKey = k;
+        
+        return (
+          <Player player={player}
+                  playerKey={playerKey}
+                  teamKey={this.props.team.key} />
+        );
+      })
+      .value();
 
     return (
-      <Card>
+      <Card style={{
+        margin: "15px"
+      }}>
         <CardTitle title={this.props.team.name} />
         <CardText>
           {players}
@@ -38,4 +42,4 @@ class Team extends React.Component {
   }
 }
 
-export default Team
+export default Team;

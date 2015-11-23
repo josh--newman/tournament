@@ -2,15 +2,36 @@
   "teams": {
     "team1": {
       "name": "Rim Rockerz",
-      "players": ["Player 1", "Player 2"]
+      "players": {
+        "player1": {
+          "name": "Josh"
+        },
+        "player2": {
+          "name": "Snedds"
+        }
+      }
     },
     "team2": {
       "name": "Bounce Brothers",
-      "players": ["Player 1", "Player 2"]
+      "players": {
+        "player1": {
+          "name": "Kyle"
+        },
+        "player2": {
+          "name": "Marts"
+        }
+      }
     },
     "team3": {
       "name": "Some other team",
-      "players": ["Player 1", "Player 2"]
+      "players": {
+        "player1": {
+          "name": "Vaughan"
+        },
+        "player2": {
+          "name": "Marcel"
+        }
+      }
     }
   }
 }
