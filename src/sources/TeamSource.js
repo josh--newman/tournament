@@ -1,15 +1,14 @@
 import Actions from '../actions';
 import Firebase from 'firebase';
 
-let firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
+let firebaseRef = null;
 
 let TeamSource = {
   createTeam: {
     remote(state) {
       return new Promise((resolve, reject) => {
-        if(!firebaseRef) {
-          return resolve();
-        }
+        firebaseRef = null;
+        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
 
         firebaseRef.push({
           "name": state.team,
@@ -29,15 +28,27 @@ let TeamSource = {
     error: Actions.teamCreatedError
   },
 
-  // deleteTeam: {
-  //   remote(state) {
-  //     return new Pr
-  //   }
-  // },
+  deleteTeam: {
+    remote(state) {
+      return new Promise((resolve, reject) => {
+        firebaseRef = null;
+        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams/'
+          + state.team.key);
+
+        firebaseRef.remove();
+      });
+      resolve();
+    },
+    success: Actions.teamDeletedSuccess,
+    error: Actions.teamDeletedError
+  },
 
   getTeams: {
     remote(state, selectedTeamKey){
       return new Promise((resolve, reject) => {
+        firebaseRef = null;
+        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
+
         firebaseRef.once("value", (dataSnapshot) => {
           var teams = dataSnapshot.val();
           selectedTeamKey = selectedTeamKey || _.keys(teams)[0];
@@ -57,6 +68,12 @@ let TeamSource = {
             let teamVal = team.val();
             teamVal.key = team.key();
             Actions.teamReceived(teamVal);
+          });
+
+          firebaseRef.on("child_removed", (oldTeam) => {
+            let oldTeamVal = oldTeam.val();
+            oldTeamVal.key = oldTeam.key();
+            Actions.teamDeleted(oldTeamVal);
           });
         });
       });

@@ -3,7 +3,7 @@ import mui from 'material-ui';
 import Actions from '../actions';
 import Player from './Player.jsx';
 
-var {Card, CardTitle, CardText} = mui;
+var {Card, CardTitle, CardText, CardActions, FlatButton} = mui;
 
 class Team extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class Team extends React.Component {
   }
 
   onClick() {
-    Actions.teamOpened(this.props.team);
+    Actions.deleteTeam(this.props.team)
   }
 
   render() {
@@ -20,7 +20,7 @@ class Team extends React.Component {
       .map((k) => {
         let player = this.props.team.players[k];
         let playerKey = k;
-        
+
         return (
           <Player player={player}
                   playerKey={playerKey}
@@ -33,8 +33,25 @@ class Team extends React.Component {
       <Card style={{
         margin: "15px"
       }}>
-        <CardTitle title={this.props.team.name} />
-        <CardText>
+        <CardActions style={{
+          float: "right",
+          marginTop: "10px",
+          zIndex: 100
+        }}>
+          <FlatButton
+            onClick={this.onClick.bind(this)}
+            label="delete"/>
+        </CardActions>
+        <CardTitle
+          style={{
+            borderBottom: "solid #FF5606 1px"
+          }}
+          title={this.props.team.name} />
+        <CardText
+          style={{
+            margin: "0",
+            padding: "5px 0 0 10px" 
+          }}>
           {players}
         </CardText>
       </Card>

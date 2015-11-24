@@ -65,7 +65,7 @@ class TeamStore {
       this.setState({
         teams: this.state.teams
       });
-      
+
       return;
     }
 
@@ -73,6 +73,27 @@ class TeamStore {
     this.setState({
       team: this.state.team
     });
+  }
+
+  @bind(Actions.deleteTeam)
+  deleteTeam(team) {
+    this.state.team = team;
+    setTimeout(this.getInstance().deleteTeam, 10);
+  }
+
+  @bind(Actions.teamDeleted)
+  teamDeleted(oldTeam) {
+    // this oldTeam is already gone
+    if(!this.state.teams[oldTeam.key]) {
+      return;
+    }
+
+    delete this.state.teams[oldTeam.key]
+
+    this.setState({
+      teams: this.state.teams
+    });
+
   }
 
   @bind(Actions.createTeam)
