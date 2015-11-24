@@ -10,6 +10,18 @@ class Player extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.setState({
+      editingPlayer: false
+    });
+  }
+
+  onClick() {
+    this.setState({
+      editingPlayer: true
+    });
+  }
+
   onChange(evt) {
     this.setState({
       player: evt.target.value
@@ -19,14 +31,13 @@ class Player extends React.Component {
   onKeyUp(evt) {
     if(evt.keyCode === 13 && trim(evt.target.value) != '') {
       evt.preventDefault();
+      this.refs.playerTextField.blur();
 
       let editPlayerPayload = {
         player: this.state.player,
         teamKey: this.props.teamKey,
         playerKey: this.props.playerKey
       };
-
-      debugger;
 
       Actions.editPlayer(editPlayerPayload);
 
@@ -38,13 +49,36 @@ class Player extends React.Component {
     }
   }
 
+  onBlur() {
+    this.setState({
+      editingPlayer: false
+    });
+  }
+
   render() {
-    return (
-      <TextField
-        defaultValue={this.props.player.name}
-        onChange={this.onChange.bind(this)}
-        onKeyUp={this.onKeyUp.bind(this)} />
-    );
+    let playerField = null;
+    if (this.state.editingPlayer) {
+      return (
+        <TextField
+          ref="playerTextField"
+          defaultValue={this.props.player.name}
+          onChange={this.onChange.bind(this)}
+          onKeyUp={this.onKeyUp.bind(this)}
+          onBlur={this.onBlur.bind(this)} />
+      );
+    } else {
+      return (
+        <p
+          style={{
+            display: "inline-block",
+            width: "256px",
+            fontSize: "16px"
+          }}
+          onClick={this.onClick.bind(this)}>
+          {this.props.player.name}
+        </p>
+      );
+    }
   }
 }
 

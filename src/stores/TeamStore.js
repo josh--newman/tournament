@@ -61,11 +61,15 @@ class TeamStore {
   @bind(Actions.teamReceived)
   teamReceived(team) {
     if(this.state.teams[team.key]) {
+      this.state.teams[team.key].players = team.players
+      this.setState({
+        teams: this.state.teams
+      });
+      
       return;
     }
 
     this.state.teams[team.key] = team;
-
     this.setState({
       team: this.state.team
     });

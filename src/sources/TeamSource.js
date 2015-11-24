@@ -29,6 +29,12 @@ let TeamSource = {
     error: Actions.teamCreatedError
   },
 
+  // deleteTeam: {
+  //   remote(state) {
+  //     return new Pr
+  //   }
+  // },
+
   getTeams: {
     remote(state, selectedTeamKey){
       return new Promise((resolve, reject) => {
@@ -42,6 +48,12 @@ let TeamSource = {
           resolve(teams);
 
           firebaseRef.on("child_added", (team) => {
+            let teamVal = team.val();
+            teamVal.key = team.key();
+            Actions.teamReceived(teamVal);
+          });
+
+          firebaseRef.on("child_changed", (team) => {
             let teamVal = team.val();
             teamVal.key = team.key();
             Actions.teamReceived(teamVal);

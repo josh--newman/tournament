@@ -16,12 +16,6 @@ let PlayerSource = {
       return new Promise((resolve, reject) => {
         firebaseRef.update({name: state.player}, (err) => {
           resolve();
-
-          // firebaseRef.on("child_updated", (player) => {
-          //   let playerVal = player.val();
-          //   playerVal.key = player.key();
-          //   Actions.playerReceived(playerVal);
-          // });
         });
       });
     },
