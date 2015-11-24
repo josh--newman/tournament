@@ -1,6 +1,7 @@
 import Actions from '../actions';
 import Firebase from 'firebase';
 
+const firebaseTeamsURL = "https://tournament-time-dev.firebaseio.com/teams/"
 let firebaseRef = null;
 
 let TeamSource = {
@@ -8,7 +9,7 @@ let TeamSource = {
     remote(state) {
       return new Promise((resolve, reject) => {
         firebaseRef = null;
-        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
+        firebaseRef = new Firebase(firebaseTeamsURL);
 
         firebaseRef.push({
           "name": state.team,
@@ -32,8 +33,7 @@ let TeamSource = {
     remote(state) {
       return new Promise((resolve, reject) => {
         firebaseRef = null;
-        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams/'
-          + state.team.key);
+        firebaseRef = new Firebase(firebaseTeamsURL + state.team.key);
 
         firebaseRef.remove();
       });
@@ -47,7 +47,7 @@ let TeamSource = {
     remote(state, selectedTeamKey){
       return new Promise((resolve, reject) => {
         firebaseRef = null;
-        firebaseRef = new Firebase('https://tournament-time.firebaseio.com/teams');
+        firebaseRef = new Firebase(firebaseTeamsURL);
 
         firebaseRef.once("value", (dataSnapshot) => {
           var teams = dataSnapshot.val();
